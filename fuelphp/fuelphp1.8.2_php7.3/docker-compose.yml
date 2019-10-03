@@ -1,12 +1,23 @@
 version: '3'
 services:
   web:
-    build: ./
+    container_name: fuelphp1.8.2_php7.2_web
+    build: ./nginx
     ports:
         - "8080:80"
     depends_on:
         - php
   php:
-    image: php:5.6-fpm
+    container_name: fuelphp1.8.2_php7.2_php
+    build: ./php
     volumes:
-      - ./app:/app
+        - ./app:/app
+  blackfire:
+    container_name: fuelphp1.8.2_php7.2_blackfire
+    env_file: .env
+    image: blackfire/blackfire
+    environment:
+      - BLACKFIRE_SERVER_ID
+      - BLACKFIRE_SERVER_TOKEN
+      - BLACKFIRE_CLIENT_ID
+      - BLACKFIRE_CLIENT_TOKEN

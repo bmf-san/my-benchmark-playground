@@ -1,0 +1,14 @@
+version: '3'
+services:
+  web:
+      container_name: php5.6_web
+      build: ./nginx
+      ports:
+          - "8080:80"
+      depends_on:
+          - php
+  php:
+      container_name: php5.6_php
+      build: ./php
+      volumes:
+          - ./app:/app
